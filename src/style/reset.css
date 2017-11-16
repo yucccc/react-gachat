@@ -1,0 +1,83 @@
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent
+}
+
+body {
+    font-family: PingFang SC, Helvetica Neue, Helvetica, Arial, Hiragino Sans GB, Microsoft Yahei, \\5FAE\8F6F\96C5\9ED1, STHeiti, \\534E\6587\7EC6\9ED1, sans-serif;
+    color: #666;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #F2F2F2;
+}
+
+a {
+    font-style: normal;
+    text-decoration: none;
+}
+
+
+li {
+    list-style-type: none;
+}
+
+input,
+img,
+button {
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+a,
+input,
+button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: 400;
+}
+
+i,
+em {
+    font-style: normal;
+}
+
+input[type=number],
+textarea {
+    -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=button],
+input[type=submit],
+input[type=search],
+input[type=file],
+input[type=reset] {
+    -webkit-appearance: none;
+    cursor: pointer;
+}

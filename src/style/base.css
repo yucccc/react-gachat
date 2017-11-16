@@ -1,0 +1,32 @@
+.am-tabs-tab-bar-wrap {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/*文本框*/
+.am-list-item .am-list-line {
+    /*justify-content: flex-end;*/
+}
+.am-list-item .am-input-label.am-input-label-5 {
+    float: right;
+}
+
+.input.am-list {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+/*底部看不见问题*/
+.list.am-list {
+    padding-bottom: 44px;
+}
+
+.img-avatar .am-list-item img {
+    width: 80px;
+    height: 80px;
+}
+.img-avatar  .am-list-line::after {
+    border: none;
+    background-color: transparent !important;
+}
