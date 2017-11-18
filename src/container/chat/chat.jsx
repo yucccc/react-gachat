@@ -1,13 +1,13 @@
 import React from 'react'
 import {List, InputItem,} from 'antd-mobile';
 import {connect} from 'react-redux'
-import {getChatRec, sendMsg, recvMsg} from "../../redux/chat.redux";
+import {getChatRec, sendMsg, recvMsg, loginSocket} from "../../redux/chat.redux";
 
 const Item = List.Item
 
 @connect(
     state => state,
-    {getChatRec, sendMsg, recvMsg}
+    {getChatRec, sendMsg, recvMsg, loginSocket}
 )
 export default class Chat extends React.Component {
 
@@ -24,6 +24,8 @@ export default class Chat extends React.Component {
         // 发送请求
         this.props.getChatRec(this.props.match.params.id)
         this.props.recvMsg()
+        // 加入聊天
+        this.props.loginSocket()
     }
 
 
@@ -59,7 +61,8 @@ export default class Chat extends React.Component {
                                     }
                                     onClick={() => {
                                     }}
-                                    key={item._id}>
+                                    key={item._id}
+                                >
                                     {item.msg}
                                 </Item>
                             )))) : null

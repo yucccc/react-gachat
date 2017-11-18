@@ -31,7 +31,7 @@ export default class DetInfo extends React.Component {
         if (flag) {
             this.props.history.push(`/chat/${this.props._id}`)
         } else {
-            this.props.history.push(`/verify/${this.props.match.params.phone}`)
+            this.props.history.push(`/verify/${this.props.match.params.phone}/${this.state.detInfo._id}`)
         }
     }
 

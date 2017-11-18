@@ -12,6 +12,8 @@ import Chat        from '../container/chat/chat'
 import Browse      from '../container/browse'
 import DetInfo     from '../container/friend/det-info'
 import FriVer      from '../container/friend/verify'
+import FriList     from '../container/friend-list'
+
 
 export default class Root extends React.Component {
     render () {
@@ -32,7 +34,9 @@ export default class Root extends React.Component {
                         {/*查看对方资料*/}
                         <Route path={`/detinfo/:phone`} component={DetInfo}/>
                         {/*发送好友验证*/}
-                        <Route path={`/verify/:phone`} component={FriVer}/>
+                        <Route path={`/verify/:phone/:id`} component={FriVer}/>
+                        {/*请求朋友列表*/}
+                        <Route path={`/friendList`} component={FriList}/>
                         <Footer/>
                     </Switch>
                 </div>

@@ -31,13 +31,14 @@ export default class AddressBook extends React.Component {
                 <WhiteSpace/>
                 <List>
                     <Item
-                        extra={<Badge text={''} overflowCount={99} />}
-                        onClick={() => { }}
-                    >新的尬友</Item>
+                        extra={<Badge text={this.props.user.requestLen} overflowCount={99} />}
+                        onClick={() => { this.props.history.push('/friendList')}}>
+                        新的尬友
+                    </Item>
                 </List>
                 <WhiteSpace/>
                 <List>
-                    {this.state.friendList.map((item, i) => (
+                    {this.state.friendList.length && this.state.friendList.map((item, i) => (
                         <Item
                             thumb={item.avatar}
                             key={item.phone}

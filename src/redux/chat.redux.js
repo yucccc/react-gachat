@@ -1,8 +1,6 @@
-import io from 'socket.io-client';
+import socket from './../socket'
 import {postChatRec} from "../fetch/api";
 
-
-const socket = io('http://127.0.0.1:3002')
 
 
 const
@@ -43,8 +41,17 @@ function updateMsg(msg) {
 export function recvMsg() {
     return dispatch => {
         socket.on('receiveMsg', (data) => {
+            console.log('------',data, '_____')
             dispatch(updateMsg(data.message))
         })
+    }
+}
+
+// 登陆发送客户端id
+export function loginSocket() {
+    return (dispatch, getStore) => {
+        console.log(getStore())
+        socket.emit('loginSocket', getStore().user._id)
     }
 }
 
@@ -59,7 +66,6 @@ export function sendMsg({from, to, msg}) {
 
 // 首次读取全部记录
 export function getChatRec(to) {
-    console.log('getChatRec')
     return (dispatch, getStore) => {
         const from = getStore().user._id
         postChatRec({from, to}).then(res => {
@@ -71,13 +77,4 @@ export function getChatRec(to) {
         })
     }
 
-}
-// 接收好友请求
-export function addFriendReq() {
-    return dispatch => {
-        socket.on('addFriendReq', (data) => {
-            console.log('data',data)
-            dispatch(f=>f)
-        })
-    }
 }

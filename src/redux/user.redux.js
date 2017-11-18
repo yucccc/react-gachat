@@ -1,12 +1,16 @@
+import socket from '../socket'
 import {getFriend} from "../fetch/api";
 import {postRegister, postLogin} from "../fetch/api";
+
 
 const
     AUTH_SUCCESS        = 'AUTH_SUCCESS',
     LOAD_DATA           = 'LOAD_DATA',
     FRIEND_LIST         = 'FRIEND_LIST',
     ERROR_MSG           = 'ERROR_MSG',
-    LOGOUT              = 'LOGOUT'
+    LOGOUT              = 'LOGOUT',
+    // 好友请求
+    ADD_FRIEND          = 'ADD_FRIEND'
 
 const initState = {
     isAuth:     false,
@@ -15,14 +19,30 @@ const initState = {
     phone:      '',
     avatar:     '',
     _id:        '',
-    chat_id:    ''
+    chat_id:    '',
+    // 当前请求条数
+    requestLen: 0,
+    // 未读条数
+    unread: 0,
 }
 
 // reducer
 export function user(state = initState, action) {
     switch (action.type) {
+        // 写入数据
         case LOAD_DATA:
-            return {...state,  isAuth: true, ...action.payload}
+            return {...state,
+                isAuth: true,
+                ...action.payload,
+                requestLen: action.payload.friendReqRead ?
+                        0 :
+                    action.payload.friend_req.filter(v=> v.req_status === 1).length}
+        // 写入好友请求
+        case ADD_FRIEND:
+            return {...state,
+                requestLen: state.requestLen + 1
+                // friend_req: state.friend_req.unshift(action.payload)
+            }
         case FRIEND_LIST:
             return {...state, ...action.payload}
         case AUTH_SUCCESS:
@@ -50,6 +70,11 @@ function authSuccess(data) {
 // 写入数据
 export function loadData(userInfo) {
     return {type: LOAD_DATA, payload: userInfo}
+}
+
+// 写入好友请求
+function addFriend(reqData) {
+    return {type: ADD_FRIEND, payload: reqData}
 }
 
 
@@ -110,3 +135,12 @@ export function logout() {
     return {type: LOGOUT}
 }
 
+// 监听好友请求
+export function monitorFriendReq() {
+    return dispatch => {
+        // 监听到就
+        socket.on('monitorFriendReq', (data) => {
+            dispatch(addFriend(data))
+        })
+    }
+}

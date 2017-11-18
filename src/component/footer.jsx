@@ -1,23 +1,34 @@
 import React from 'react'
 import { TabBar } from 'antd-mobile';
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+// import {monitorFriendReq} from "../redux/friend.redux";
 
 @withRouter
-
+@connect(
+    state=>state.user,
+    // {monitorFriendReq}
+)
 export default class Footer extends React.Component {
 
+
+    componentDidMount() {
+        // this.props.monitorFriendReq()
+    }
     render () {
         const {pathname} = this.props.location
         const navOption = [
             {
                 title: '消息',
                 path: '/',
-                icon: 'message'
+                icon: 'message',
+                badge: this.props.unread
             },
             {
                 title: '通讯录',
                 path: '/addressbook',
-                icon: 'addressbook'
+                icon: 'addressbook',
+                badge: this.props.requestLen
             },
             {
                 title: '发现',
@@ -37,6 +48,7 @@ export default class Footer extends React.Component {
                          <TabBar.Item
                             title={item.title}
                             key={item.icon}
+                            badge={item.badge && item.badge}
                             icon={<img
                                 src={require(`./../images/${item.icon}.svg`)}
                                 alt={item.title}/>}

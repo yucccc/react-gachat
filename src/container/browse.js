@@ -1,9 +1,12 @@
 import React from 'react'
 import {List, WhiteSpace, Modal, Toast} from 'antd-mobile'
+import {connect} from 'react-redux'
 
 const prompt = Modal.prompt;
 const Item = List.Item
-
+@connect(
+    state=>state.user
+)
 export default class Browse extends  React.Component {
     constructor (props) {
         super(props)
@@ -16,7 +19,11 @@ export default class Browse extends  React.Component {
                 { text: '取消' },
                 {text: '确定', onPress: val => {
                     if (val) {
-                        this.props.history.push(`/detinfo/${val}`)
+                        if (val != this.props.phone) {
+                            this.props.history.push(`/detinfo/${val}`)
+                        } else {
+                            Toast.fail('不能添加自己啊兄弟', 2);
+                        }
                     }  else {
                         Toast.info('手机号码不能为空', 1);
                     }
@@ -24,6 +31,7 @@ export default class Browse extends  React.Component {
             ])
     }
     render () {
+        console.log(this.props)
         return (
             <div>
                 <WhiteSpace/>
