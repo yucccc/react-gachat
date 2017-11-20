@@ -31,12 +31,3 @@ export function addFriendReq(userId) {
         socket.emit('addFriendRequest', userId)
     }
 }
-
-// 监听好友请求
-export function monitorFriendReq() {
-    return dispatch => {
-        socket.on('monitorFriendReq', (data) => {
-            console.log(data)
-        })
-    }
-}

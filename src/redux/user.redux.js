@@ -1,7 +1,6 @@
 import socket from '../socket'
-import {getFriend} from "../fetch/api";
+import {getFriend, getFriendRequestList} from "../fetch/api";
 import {postRegister, postLogin} from "../fetch/api";
-
 
 const
     AUTH_SUCCESS        = 'AUTH_SUCCESS',
@@ -10,7 +9,9 @@ const
     ERROR_MSG           = 'ERROR_MSG',
     LOGOUT              = 'LOGOUT',
     // 好友请求
-    ADD_FRIEND          = 'ADD_FRIEND'
+    ADD_FRIEND          = 'ADD_FRIEND',
+    // 好友请求列表
+    REQ_FRIEND          = 'REQ_FRIEND'
 
 const initState = {
     isAuth:     false,
@@ -20,8 +21,12 @@ const initState = {
     avatar:     '',
     _id:        '',
     chat_id:    '',
-    // 当前请求条数
-    requestLen: 0,
+    requestFriendMsg:{
+        // 当前请求条数
+        requestLen: 0,
+    },
+    // 好友请求列表
+    requestFriendList:[],
     // 未读条数
     unread: 0,
 }
@@ -31,18 +36,16 @@ export function user(state = initState, action) {
     switch (action.type) {
         // 写入数据
         case LOAD_DATA:
-            return {...state,
-                isAuth: true,
-                ...action.payload,
-                requestLen: action.payload.friendReqRead ?
-                        0 :
-                    action.payload.friend_req.filter(v=> v.req_status === 1).length}
-        // 写入好友请求
+            return {...state, isAuth: true, ...action.payload}
+        // 写入好友请求 todo 后期需要requestLast数据
         case ADD_FRIEND:
             return {...state,
-                requestLen: state.requestLen + 1
-                // friend_req: state.friend_req.unshift(action.payload)
-            }
+                requestFriendMsg: {
+                    requestLast: state.requestFriendMsg.requestLast,
+                    requestLen: action.payload}}
+        // 好友请求
+        case REQ_FRIEND:
+            return {...state, requestFriendList: action.payload}
         case FRIEND_LIST:
             return {...state, ...action.payload}
         case AUTH_SUCCESS:
@@ -73,8 +76,12 @@ export function loadData(userInfo) {
 }
 
 // 写入好友请求
-function addFriend(reqData) {
-    return {type: ADD_FRIEND, payload: reqData}
+export function addFriend(reqLen) {
+    return {type: ADD_FRIEND, payload: reqLen}
+}
+// 写入好友列表
+function _writeReqList(list) {
+    return {type: REQ_FRIEND, payload: list}
 }
 
 
@@ -138,9 +145,24 @@ export function logout() {
 // 监听好友请求
 export function monitorFriendReq() {
     return dispatch => {
-        // 监听到就
-        socket.on('monitorFriendReq', (data) => {
-            dispatch(addFriend(data))
+        // reqLen 返回未读条数
+        socket.on('monitorFriendReq', (reqLen) => {
+            // todo 重新请求一次好友列表
+            if (window.location.href.includes('friendList')) {
+                dispatch(_getFriendRequestList())
+            }
+            console.log('监听到了好友请求', reqLen)
+            // 获取条数
+            dispatch(addFriend(reqLen))
+        })
+    }
+}
+
+// 获取请求列表
+export function _getFriendRequestList() {
+    return dispatch => {
+        getFriendRequestList().then(res=>{
+            dispatch(_writeReqList(res.data))
         })
     }
 }

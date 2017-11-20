@@ -27,7 +27,7 @@ export default class FriVer extends React.Component {
                     this.props.addFriendReq(this.props.match.params.id)
                 }
                 Toast.info(res.msg, 2, ()=>{
-                    this.props.history.push(`/detInfo/${this.props.match.params.phone}`)
+                    this.props.history.go(-1)
                 })
 
         })

@@ -19,9 +19,9 @@ export const getUserInfo = (params) => {
 export const getFriend = (params)=> {
     return httpFetch('/user/friend', params)
 }
-// 获取好友请求列表
 
-export const getFriendList = (params) => {
+// 获取好友请求列表
+export const getFriendRequestList = (params) => {
     return httpFetch('/user/friendList', params)
 }
 

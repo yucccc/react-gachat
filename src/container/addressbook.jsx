@@ -31,7 +31,7 @@ export default class AddressBook extends React.Component {
                 <WhiteSpace/>
                 <List>
                     <Item
-                        extra={<Badge text={this.props.user.requestLen} overflowCount={99} />}
+                        extra={<Badge text={this.props.user.requestFriendMsg.requestLen} overflowCount={99} />}
                         onClick={() => { this.props.history.push('/friendList')}}>
                         新的尬友
                     </Item>

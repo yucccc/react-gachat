@@ -28,7 +28,7 @@ export default class Footer extends React.Component {
                 title: '通讯录',
                 path: '/addressbook',
                 icon: 'addressbook',
-                badge: this.props.requestLen
+                badge: this.props.requestFriendMsg.requestLen
             },
             {
                 title: '发现',
@@ -48,7 +48,7 @@ export default class Footer extends React.Component {
                          <TabBar.Item
                             title={item.title}
                             key={item.icon}
-                            badge={item.badge && item.badge}
+                            badge={item.badge}
                             icon={<img
                                 src={require(`./../images/${item.icon}.svg`)}
                                 alt={item.title}/>}
