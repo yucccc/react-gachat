@@ -49,9 +49,8 @@ export function recvMsg() {
 
 // 登陆发送客户端id
 export function loginSocket() {
-    return (dispatch, getStore) => {
-        console.log(getStore())
-        socket.emit('loginSocket', getStore().user._id)
+    return (dispatch, getState) => {
+        socket.emit('loginSocket', getState().user._id)
     }
 }
 
@@ -66,9 +65,9 @@ export function sendMsg({from, to, msg}) {
 
 // 首次读取全部记录
 export function getChatRec(to) {
-    return (dispatch, getStore) => {
-        const from = getStore().user._id
-        postChatRec({from, to}).then(res => {
+    return (dispatch, getState) => {
+        // const from = getState().user._id
+        postChatRec({to}).then(res => {
             if (!res.code) {
                 dispatch(msgRecv(res))
             } else {

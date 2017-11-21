@@ -20,12 +20,12 @@ export default class Chat extends React.Component {
     }
 
 
-    componentDidMount() {
-        // 发送请求
-        this.props.getChatRec(this.props.match.params.id)
+    async componentDidMount() {
         this.props.recvMsg()
+        // 发送请求
+        await this.props.getChatRec(this.props.match.params.id)
         // 加入聊天
-        this.props.loginSocket()
+        // this.props.loginSocket()
     }
 
 

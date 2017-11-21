@@ -47,7 +47,7 @@ export default class FriList extends React.Component {
                     this.toLink(phone)
                 });
             } else {
-                Toast.fail('通过失败')
+                Toast.fail(res.msg)
             }
         })
     }

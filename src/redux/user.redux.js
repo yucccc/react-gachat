@@ -27,8 +27,8 @@ const initState = {
     },
     // 好友请求列表
     requestFriendList:[],
-    // 未读条数
-    unread: 0,
+    // 未读信息条数
+    unreadMsgLen: 0
 }
 
 // reducer

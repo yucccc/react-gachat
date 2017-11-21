@@ -30,6 +30,10 @@ export const getFriendRequestList = (params) => {
 export const postChatRec = (params)=> {
     return httpFetch('/user/chatRec', params, 'post')
 }
+// 首页聊天记录列表
+export const postChatList = (params) => {
+    return httpFetch('/user/chatList', params, 'post')
+}
 
 // 查询用户
 

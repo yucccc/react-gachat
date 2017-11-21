@@ -22,7 +22,7 @@ export default class Footer extends React.Component {
                 title: '消息',
                 path: '/',
                 icon: 'message',
-                badge: this.props.unread
+                badge: this.props.unreadMsgLen
             },
             {
                 title: '通讯录',

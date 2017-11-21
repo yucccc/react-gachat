@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Login       from '../container/login'
+import Login       from '../container/login.js'
 import Register    from '../container/register'
 import Index       from '../container/index'
 import AuthRoute   from '../container/authroute'

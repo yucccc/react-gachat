@@ -13,7 +13,7 @@ class Login extends Component {
         super(props)
 
         this.state = {
-            phone: '1',
+            phone: '12345',
             password: '123'
         }
 

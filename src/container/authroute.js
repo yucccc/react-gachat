@@ -9,28 +9,24 @@ import {monitorFriendReq} from "../redux/user.redux";
 
 @withRouter
 @connect(
-    null,
+    state=>state.user,
     {loadData, loginSocket, monitorFriendReq}
 )
 class AuthRoute extends React.Component {
 
-    componentDidMount() {
+   async componentDidMount() {
         // 白名单
         const whiteList = ['/login', '/register']
         const {pathname} = this.props.location
         if (whiteList.indexOf(pathname) > -1) return false
-        // 已经有用户信息
+        if (this.props._id) return false
         // if (getStore('userInfo')) {
         //
-        //     this.props.loadData(JSON.parse(getStore('userInfo')))
-        //     // 重新连接
-        //     this.props.loginSocket()
-        //
-        // } else {
-            // 获取用户信息
-            getUserInfo().then(res => {
+        // }
+        // 已经有用户信息
+        getUserInfo().then(res => {
                 if (!res.code) {
-                    // setStore('userInfo', res.data)
+                    setStore('userInfo', res.data)
                     this.props.loadData(res.data)
                     // 重新连接
                     this.props.loginSocket()
@@ -39,10 +35,7 @@ class AuthRoute extends React.Component {
                     // token失效
                     this.props.history.push('/login')
                 }
-            })
-        // }
-
-
+        })
     }
 
     render() {
