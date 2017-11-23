@@ -1,9 +1,18 @@
 import React from 'react'
-import { SwipeAction, List } from 'antd-mobile';
-import {postChatList} from '../fetch/api'
+import { SwipeAction, List, Badge} from 'antd-mobile';
+
+
+import {connect} from 'react-redux'
+import {_postChatList} from "@/redux/user.redux";
+
 
 const Item  = List.Item
 const Brief = Item.Brief
+
+@connect(
+    state=>state.user,
+    {_postChatList}
+)
 
  class Index extends React.Component {
 
@@ -14,23 +23,28 @@ const Brief = Item.Brief
         }
     }
     componentDidMount () {
+        if (!this.props.chatList.length) {
+            // 聊天列表
+            this.props._postChatList()
+        }
 
-        postChatList().then(res=>{
-            this.setState({
-                chatList: res.data
-            })
-        })
 
     }
+
+    toLink (id) {
+        this.props.history.push(`/chat/${id}`)
+    }
+
     render () {
-        if (!this.state.chatList.length) return <div>没聊天记录</div>
+        if (!this.props.chatList.length) return null
         return (
             <div>
                 {
-                    this.state.chatList.map(item => (
+                    this.props.chatList.map((item, i) => (
                         <SwipeAction
                             style={{ backgroundColor: 'gray' }}
                             autoClose
+                            key={i}
                             right={[
                                 {
                                     text: '取消',
@@ -48,7 +62,8 @@ const Brief = Item.Brief
                         >
                             <Item
                                 thumb={item.user_msg.avatar}
-                                onClick={() => { this.props.history.push(`/chat/${item.user_msg._id}`)}}
+                                onClick={this.toLink.bind(this, item.user_msg._id)}
+                                extra={<Badge text={item.unreadLen} overflowCount={99} />}
                             >
                                 {item.user_msg.nickName}
                                 <Brief>{item.msg}</Brief>

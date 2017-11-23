@@ -1,14 +1,17 @@
 import React from 'react'
 import {List, InputItem,} from 'antd-mobile';
 import {connect} from 'react-redux'
-import {getChatRec, sendMsg, recvMsg, loginSocket} from "../../redux/chat.redux";
+import {sendMsg} from "../../redux/chat.redux";
+import {getChatRec, signRead} from "../../redux/user.redux";
+import {readMsg} from "../../fetch/api";
 
 const Item = List.Item
 
 @connect(
     state => state,
-    {getChatRec, sendMsg, recvMsg, loginSocket}
+    {getChatRec, sendMsg, signRead}
 )
+
 export default class Chat extends React.Component {
 
     constructor(props) {
@@ -21,11 +24,26 @@ export default class Chat extends React.Component {
 
 
     async componentDidMount() {
-        this.props.recvMsg()
+        // this.props.recvMsg()
         // 发送请求
         await this.props.getChatRec(this.props.match.params.id)
-        // 加入聊天
-        // this.props.loginSocket()
+
+    }
+
+    componentWillUnmount () {
+
+
+        this.props.signRead(this.props.match.params.id)
+
+        readMsg({
+            type: 'chatMsg',
+            to: this.props.match.params.id,
+            from: this.props.user._id
+        }).then(res=> {
+            if (!res.code) {
+                console.log('标记已读')
+            }
+        })
     }
 
 
@@ -50,10 +68,10 @@ export default class Chat extends React.Component {
             <div>
                 <List className='list'>
                     {
-                        props.chat.chat_msg.length ?
-                            (this.props.chat.chat_msg.map((item => (
+                        props.user.chat_msg.length ?
+                            (this.props.user.chat_msg.map((item => (
                                 <Item
-                                    thumb={item.from === props.user._id ? '': <img src={props.chat.avatar} alt="/"/> }
+                                    thumb={item.from === props.user._id ? '': <img src={props.user.user_msg.avatar} alt="/"/> }
                                     multipleLine
                                     wrap
                                     extra={

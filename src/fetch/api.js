@@ -54,5 +54,5 @@ export const byVerify =  (params)=> {
 // 读取信息
 
 export const readMsg =  (params)=> {
-    return httpFetch('/user/readMsg', params)
+    return httpFetch('/user/readMsg', params, 'post')
 }

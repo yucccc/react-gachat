@@ -1,8 +1,8 @@
 import React from 'react'
-import {List, WhiteSpace, Badge} from 'antd-mobile'
-import {getFriend} from '../fetch/api'
-import {connect} from 'react-redux'
-import {getFriendList} from "../redux/user.redux";
+import {List, WhiteSpace, Badge}    from 'antd-mobile'
+import {getFriend}                  from '@/fetch/api'
+import {connect}                    from 'react-redux'
+import {getFriendList}              from "@/redux/user.redux";
 
 const Item = List.Item;
 
@@ -10,6 +10,7 @@ const Item = List.Item;
     state=> state,
     {getFriendList}
 )
+
 export default class AddressBook extends React.Component {
     constructor (props) {
         super(props)
@@ -24,6 +25,12 @@ export default class AddressBook extends React.Component {
           }
      })
     }
+
+    toUserMsg (phone,e) {
+        e.stopPropagation()
+       this.props.history.push(`/detInfo/${phone}`)
+    }
+
     render () {
 
         return (
@@ -42,7 +49,7 @@ export default class AddressBook extends React.Component {
                 <List>
                     {this.state.friendList.length && this.state.friendList.map((item, i) => (
                         <Item
-                            thumb={item.avatar}
+                            thumb={<img onClick={this.toUserMsg.bind(this, item.phone)} src={item.avatar} alt=""/>}
                             key={item.phone}
                             onClick={() => { this.props.history.push(`/chat/${item._id}`)}}
                         >{item.remark ? item.remark : item.nickName}</Item>

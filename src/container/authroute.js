@@ -1,16 +1,15 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom'
-import {getUserInfo} from './../fetch/api'
-import {loadData} from "../redux/user.redux"
-import {connect} from 'react-redux'
-import {getStore,setStore} from "../utils/storage";
-import {loginSocket} from "../redux/chat.redux";
-import {monitorFriendReq} from "../redux/user.redux";
+import {withRouter}     from 'react-router-dom'
+import {getUserInfo}    from '@/fetch/api'
+import {connect}        from 'react-redux'
+import {getStore,setStore}  from "@/utils/storage";
+import {loginSocket}        from "@/redux/chat.redux";
+import {recvMsg, loadData, monitorFriendReq} from '../redux/user.redux'
 
 @withRouter
 @connect(
     state=>state.user,
-    {loadData, loginSocket, monitorFriendReq}
+    {loadData, loginSocket, monitorFriendReq, recvMsg}
 )
 class AuthRoute extends React.Component {
 
@@ -27,9 +26,13 @@ class AuthRoute extends React.Component {
         getUserInfo().then(res => {
                 if (!res.code) {
                     setStore('userInfo', res.data)
+                    // 加入数据
                     this.props.loadData(res.data)
+                    // 接收信息
+                    this.props.recvMsg()
                     // 重新连接
                     this.props.loginSocket()
+                    //
                     this.props.monitorFriendReq()
                 } else {
                     // token失效
