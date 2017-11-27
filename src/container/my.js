@@ -47,7 +47,7 @@ export default class My extends React.Component {
                     message={<div>手机号: {props.phone}</div>}
                 />
                 <WhiteSpace />
-
+                <Item arrow="horizontal" onClick={() => {this.props.history.push('/album')}}>相册</Item>
                 <Item arrow="horizontal" onClick={this.showAlert}>注销</Item>
             </div>
         )

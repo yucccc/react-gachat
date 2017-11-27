@@ -3,7 +3,7 @@ import {Button, List, InputItem, WhiteSpace, WingBlank} from 'antd-mobile'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {login} from "../redux/user.redux";
-
+import Logo from '@/component/logo'
 @connect(
     state=>state.user,
     {login}
@@ -13,8 +13,8 @@ class Login extends Component {
         super(props)
 
         this.state = {
-            phone: '12345',
-            password: '123'
+            phone: '',
+            password: ''
         }
 
         this.change = this.change.bind(this)
@@ -41,13 +41,16 @@ class Login extends Component {
         }
         return (
             <div>
+                <Logo/>
+                <WhiteSpace/>
+
                 <List>
+                    <InputItem type="number" placeholder="请输入尬聊号" value={this.state.phone} onChange={v => {this.change('phone', v)}}>尬聊号</InputItem>
                     <WhiteSpace/>
-                    <InputItem type="number" placeholder="请输入手机号码" value={this.state.phone} onChange={v => {this.change('phone', v)}}>手机号码</InputItem>
-                    <WhiteSpace/>
-                    <InputItem type="password" placeholder="密码" value={this.state.password} onChange={v => {this.change('password', v)}}>密码</InputItem>
-                    <WhiteSpace/>
+                    <InputItem type="password" placeholder="请输入密码" value={this.state.password} onChange={v => {this.change('password', v)}}>密码</InputItem>
                 </List>
+                <WhiteSpace/>
+
                 <WingBlank>
                     <Button type='primary' onClick={this.login}>登陆</Button>
                 </WingBlank>

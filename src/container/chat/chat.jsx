@@ -74,11 +74,8 @@ export default class Chat extends React.Component {
                                     thumb={item.from === props.user._id ? '': <img src={props.user.user_msg.avatar} alt="/"/> }
                                     multipleLine
                                     wrap
-                                    extra={
-                                        item.from === props.user._id ?  <img src={props.user.avatar} alt='/'/> :''
-                                    }
-                                    onClick={() => {
-                                    }}
+                                    extra={item.from === props.user._id ?  <img src={props.user.avatar} alt='/'/> :''}
+                                    onClick={() => {}}
                                     key={item._id}
                                 >
                                     {item.msg}

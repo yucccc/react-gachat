@@ -29,7 +29,7 @@ export default class DetInfo extends React.Component {
 
     toWhere (flag) {
         if (flag) {
-            this.props.history.push(`/chat/${this.props._id}`)
+            this.props.history.push(`/chat/${this.state.detInfo._id}`)
         } else {
             this.props.history.push(`/verify/${this.props.match.params.phone}/${this.state.detInfo._id}`)
         }

@@ -13,7 +13,7 @@ import Browse      from '@/container/browse'
 import DetInfo     from '@/container/friend/det-info'
 import FriVer      from '@/container/friend/verify'
 import FriList     from '@/container/friend-list'
-
+import Album       from '@/container/album/album'
 
 export default class Root extends React.Component {
     render () {
@@ -22,10 +22,10 @@ export default class Root extends React.Component {
                 <div>
                     {/*检验用户是否登陆*/}
                     <AuthRoute/>
-                    <Route exact path='/' component={Index}/>
-                    <Route exact path='/my' component={My}/>
-                    <Route exact path='/addressbook' component={AddressBook}/>
-                    <Route exact path='/browse' component={Browse}/>
+                    <Route exact path='/'       component={Index}/>
+                    <Route path='/my'           component={My}/>
+                    <Route path='/addressbook'  component={AddressBook}/>
+                    <Route path='/browse'       component={Browse}/>
                     <Switch>
                         <Route path={`/login`} component={Login}/>
                         <Route path={`/register`} component={Register}/>
@@ -37,6 +37,8 @@ export default class Root extends React.Component {
                         <Route path={`/verify/:phone/:id`} component={FriVer}/>
                         {/*请求朋友列表*/}
                         <Route path={`/friendList`} component={FriList}/>
+                        {/*个人相册*/}
+                        <Route path='/album'        component={Album}/>
                         <Footer/>
                     </Switch>
                 </div>

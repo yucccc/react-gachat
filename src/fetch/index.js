@@ -7,7 +7,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 // 错误提示
 function offline(duration, content = '发生错误 !') {
-    Toast.offline(content, duration, ()=>{}, false);
+    Toast.offline(content, duration, null, false);
 }
 // 请求拦截
 axios.interceptors.request.use(config => {
@@ -33,6 +33,7 @@ axios.interceptors.response.use(config => {
 })
 
 export default function fetch(url, params = {}, method = 'get') {
+    // 处理不同请求方式的传参格式
     if (method === 'get') {
         params = {params}
     }
@@ -40,14 +41,15 @@ export default function fetch(url, params = {}, method = 'get') {
 
         axios[method](url, params).then(res => {
 
-            // 后端code 不为 0 抛出提示
+            // 后端code 不为 0 抛出提示 =>  这里我后端定义的是 0 即时正常数据
+            // 请根据实际应用进行调整
             res.data.code && Toast.info(res.data.msg, 1, null, true)
 
             resolve(res.data)
 
 
         }).catch(error => {
-            offline(2, '接口异常..')
+            offline(2, '接口异常')
             reject(error)
         })
     })

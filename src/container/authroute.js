@@ -14,6 +14,16 @@ import {recvMsg, loadData, monitorFriendReq} from '../redux/user.redux'
 class AuthRoute extends React.Component {
 
    async componentDidMount() {
+
+        if (this.props._id) {
+            // 重新连接
+            this.props.loginSocket()
+            // 接收消息
+            this.props.recvMsg()
+            // 好友请求
+            this.props.monitorFriendReq()
+        }
+       
         // 白名单
         const whiteList = ['/login', '/register']
         const {pathname} = this.props.location
@@ -28,18 +38,14 @@ class AuthRoute extends React.Component {
                     setStore('userInfo', res.data)
                     // 加入数据
                     this.props.loadData(res.data)
-                    // 接收信息
-                    this.props.recvMsg()
-                    // 重新连接
-                    this.props.loginSocket()
-                    //
-                    this.props.monitorFriendReq()
+
                 } else {
                     // token失效
                     this.props.history.push('/login')
                 }
         })
     }
+
 
     render() {
         return null

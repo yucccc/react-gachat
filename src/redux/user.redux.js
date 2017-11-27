@@ -1,7 +1,7 @@
 import socket from '../socket'
 import {getFriend, getFriendRequestList} from "../fetch/api";
 import {postRegister, postLogin, postChatList, postChatRec} from "../fetch/api";
-
+import {Toast} from 'antd-mobile'
 const
     AUTH_SUCCESS        = 'AUTH_SUCCESS',
     LOAD_DATA           = 'LOAD_DATA',
@@ -129,9 +129,12 @@ export function user(state = initState, action) {
 
         case CHAT_LIST:
             return {...state, chatList: [...action.payload]}
+            // 注册成功
         case AUTH_SUCCESS:
             return {...state, isAuth: true, msg: '', ...action.payload, redirectTo:'/'}
+        // 错误信息
         case ERROR_MSG:
+
             return {...state, isAuth: false, msg: action.msg}
         case LOGOUT:
             return {...initState, redirectTo: '/login'}
@@ -193,7 +196,8 @@ export function getFriendList(phone) {
         getFriend(phone).then(res => {
             if (!res.code) {
                 dispatch(friendList(res.data))
-            }else {
+            }
+            else {
                 dispatch(errorMsg(res.msg))
             }
         })
@@ -204,7 +208,8 @@ export function getFriendList(phone) {
 // 注册
 export function register({nickName, phone, password}) {
     if (!nickName || !phone || !password) {
-       return errorMsg('缺少必须参数')
+        Toast.info('所有都是必填哦~~', 1, null, false)
+        return errorMsg('缺少必须参数')
     }
     return dispatch => {
         postRegister({
@@ -214,6 +219,7 @@ export function register({nickName, phone, password}) {
         }).then(res=> {
             if (!res.code) {
                 dispatch(authSuccess(res.data))
+            
             }else {
                 dispatch(errorMsg(res.msg))
             }
@@ -245,6 +251,7 @@ export function logout() {
 
 // 监听好友请求
 export function monitorFriendReq() {
+    console.log("监听好友请求");
     return dispatch => {
         // reqLen 返回未读条数
         socket.on('monitorFriendReq', (reqLen) => {
@@ -263,10 +270,6 @@ export function monitorFriendReq() {
 export function recvMsg() {
     return dispatch => {
         socket.on('receiveMsg', (data) => {
-            // {
-            //   data : {} // 聊天内容
-            //   [_id]: {} // 用户信息
-            // }
             console.log('接收到信息', data)
             dispatch(updataMsg(data))
         })

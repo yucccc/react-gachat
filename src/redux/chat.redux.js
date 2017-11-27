@@ -51,7 +51,9 @@ export function chat(state = initState, action) {
 
 // 登陆发送客户端id
 export function loginSocket() {
+    console.log('进入登陆发送---------');
     return (dispatch, getState) => {
+        console.log('发送登陆',getState().user._id);
         socket.emit('loginSocket', getState().user._id)
     }
 }
