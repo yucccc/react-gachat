@@ -1,6 +1,6 @@
-## 尬聊app
+# 尬聊
 
-### 运行项目
+## 运行项目
 
 - 确保安装了node.js >= v7.6.0
 
@@ -10,9 +10,7 @@
 
 ### 启动项目
 
-- 需要先启动后端
-
-``nodemon app.js``
+- 需要先启动后端 npm run server
 
 - 启动前端
 
@@ -39,18 +37,3 @@
 GitHub地址: [https://github.com/amfe/lib-flexible/tree/master](https://github.com/amfe/lib-flexible/tree/master)
 > 目前使用的还是2.x以下rem适配方案 (2.x以上使用的是vw适配)
 > 1rem = 37.5px  即 1px = 1 / 37.5 = .02666rem 保留 4位小数
-- ui 组件库: 使用 atnd-mobile
-
-GitHub地址:
-[https://github.com/ant-design/ant-design-mobile](https://github.com/ant-design/ant-design-mobile)
-
-- 数据请求: ~~fetch~~ axios
-
-~~GitHub地址: [https://github.com/github/fetch](https://github.com/github/fetch)~~
-
-GitHub地址: [https://github.com/axios/axios](https://github.com/axios/axios)
-
-
-- react-motion 动画库
-
-GitHub地址 : [https://github.com/chenglou/react-motion](https://github.com/chenglou/react-motion)

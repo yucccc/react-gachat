@@ -1,5 +1,5 @@
 import socket from './../socket'
-import {postChatRec} from "../fetch/api";
+// import {postChatRec} from "../fetch/api";
 
 
 
@@ -17,10 +17,10 @@ const initState = {
 
 export function chat(state = initState, action) {
     switch (action.type) {
-        case 'MSG_RECV':
+        case MSG_RECV:
             return {...state, chat_msg: [...action.payload.data], user_msg: action.payload.user_msg}
             // 更新聊天内容
-        case 'UPDATA_MSG':
+        case UPDATA_MSG:
             return {...state, chat_msg: [...state.chat_msg, action.payload]}
         default:
             return state

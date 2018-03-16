@@ -12,7 +12,7 @@ export const postLogin = (params) => {
 
 // 获取用户信息
 export const getUserInfo = (params) => {
-    return httpFetch('/user/info', params)
+    return httpFetch('/user/info', params, 'get')
 }
 
 // 获取通讯录
@@ -55,4 +55,10 @@ export const byVerify =  (params)=> {
 
 export const readMsg =  (params)=> {
     return httpFetch('/user/readMsg', params, 'post')
+}
+
+// 发送朋友圈
+
+export const sendMoments = (params) => {
+    return httpFetch('/moments/sendMoments', params, 'post')
 }

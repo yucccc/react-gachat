@@ -16,7 +16,7 @@ const initState = {
 
 export function friend(state = initState, action) {
     switch (action.type) {
-        case  'ADD_FRIEND':
+        case  ADD_FRIEND:
             return {}
         default:
             return state

@@ -3,7 +3,7 @@ import { SwipeAction, List, Badge} from 'antd-mobile';
 
 
 import {connect} from 'react-redux'
-import {_postChatList} from "@/redux/user.redux";
+import {_postChatList} from "../redux/user.redux";
 
 
 const Item  = List.Item

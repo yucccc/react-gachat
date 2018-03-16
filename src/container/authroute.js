@@ -1,9 +1,9 @@
 import React from 'react'
 import {withRouter}     from 'react-router-dom'
-import {getUserInfo}    from '@/fetch/api'
+import {getUserInfo}    from '../fetch/api'
 import {connect}        from 'react-redux'
-import {getStore,setStore}  from "@/utils/storage";
-import {loginSocket}        from "@/redux/chat.redux";
+import {setStore}  from "../utils/storage";
+import {loginSocket}        from "../redux/chat.redux";
 import {recvMsg, loadData, monitorFriendReq} from '../redux/user.redux'
 
 @withRouter
@@ -15,14 +15,14 @@ class AuthRoute extends React.Component {
 
    async componentDidMount() {
 
-        if (this.props._id) {
+        // if (this.props._id) {
             // 重新连接
             this.props.loginSocket()
             // 接收消息
             this.props.recvMsg()
             // 好友请求
             this.props.monitorFriendReq()
-        }
+        // }
        
         // 白名单
         const whiteList = ['/login', '/register']

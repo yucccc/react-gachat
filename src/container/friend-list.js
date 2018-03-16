@@ -1,7 +1,7 @@
 import React from 'react'
-import {byVerify, readMsg}                  from "@/fetch/api";
+import {byVerify, readMsg}                  from "../fetch/api";
 import {List, WhiteSpace, Button, Toast}    from 'antd-mobile'
-import {_getFriendRequestList, addFriend}   from "@/redux/user.redux";
+import {_getFriendRequestList, addFriend}   from "../redux/user.redux";
 
 import {connect} from 'react-redux'
 const Item = List.Item

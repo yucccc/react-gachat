@@ -4,9 +4,11 @@ import {connect} from 'react-redux'
 
 const prompt = Modal.prompt;
 const Item = List.Item
+
 @connect(
-    state=>state.user
+    state => state.user
 )
+
 export default class Browse extends  React.Component {
     constructor (props) {
         super(props)
@@ -35,7 +37,7 @@ export default class Browse extends  React.Component {
             <div>
                 <WhiteSpace/>
                 <List>
-                    <Item arrow="horizontal" onClick={() => {}}>尬聊圈</Item>
+                    <Item arrow="horizontal" onClick={() => {this.props.history.push('/moments')}}>尬聊圈</Item>
                 </List>
                 <WhiteSpace/>
                 <List>

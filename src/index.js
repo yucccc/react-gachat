@@ -17,9 +17,15 @@ const store = createStore(
     )
 );
 
+const root = document.getElementById('root')
+
 ReactDom.render(
     <Provider store={store}>
             <Root/>
     </Provider>
-    ,document.getElementById('root')
+    ,root
 );
+
+if (module.hot) {
+    module.hot.accept();
+}

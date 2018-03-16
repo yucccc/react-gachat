@@ -1,8 +1,8 @@
 import React from 'react'
 import {List, WhiteSpace, Badge}    from 'antd-mobile'
-import {getFriend}                  from '@/fetch/api'
+import {getFriend}                  from '../fetch/api'
 import {connect}                    from 'react-redux'
-import {getFriendList}              from "@/redux/user.redux";
+import {getFriendList}              from "../redux/user.redux";
 
 const Item = List.Item;
 

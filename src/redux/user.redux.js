@@ -219,7 +219,7 @@ export function register({nickName, phone, password}) {
         }).then(res=> {
             if (!res.code) {
                 dispatch(authSuccess(res.data))
-            
+
             }else {
                 dispatch(errorMsg(res.msg))
             }

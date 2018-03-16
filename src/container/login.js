@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {Button, List, InputItem, WhiteSpace, WingBlank} from 'antd-mobile'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {login} from "../redux/user.redux";
-import Logo from '@/component/logo'
+import {loginSocket} from '../redux/chat.redux'
+import {login, recvMsg, monitorFriendReq} from "../redux/user.redux";
+import Logo from '../component/logo'
 @connect(
     state=>state.user,
-    {login}
+    {login, loginSocket, recvMsg, monitorFriendReq}
 )
 class Login extends Component {
     constructor (props) {
@@ -34,6 +35,18 @@ class Login extends Component {
     register () {
         this.props.history.push('/register')
     }
+    
+    componentWillUnmount () {
+        if (this.props._id) {
+            // 重新连接
+            this.props.loginSocket()
+            // 接收消息
+            this.props.recvMsg()
+            // 好友请求
+            this.props.monitorFriendReq()
+        }
+    }
+
     render () {
         let pathname = this.props.location.pathname
         if (this.props.redirectTo && this.props.redirectTo !== pathname) {
